@@ -9,7 +9,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Exceptional.Tests</RootNamespace>
     <AssemblyName>Exceptional.Tests</AssemblyName>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <TargetFrameworkProfile />
     <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
@@ -43,19 +43,22 @@
       <HintPath>..\packages\NUnit.2.6.1\lib\nunit.framework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DebuggerShim.cs" />
-    <Compile Include="describe_Alert.cs" />
-    <Compile Include="describe_ClientSummary.cs" />
-    <Compile Include="describe_EnvironmentSummary.cs" />
-    <Compile Include="describe_ExceptionalClient.cs" />
-    <Compile Include="describe_ExceptionSummary.cs" />
+    <Compile Include="Standard\describe_Alert.cs" />
+    <Compile Include="Standard\describe_ClientSummary.cs" />
+    <Compile Include="Standard\describe_EnvironmentSummary.cs" />
+    <Compile Include="Standard\describe_ExceptionalClient.cs" />
+    <Compile Include="Standard\describe_ExceptionSummary.cs" />
+    <Compile Include="Integration\describe_Integration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RunnerShimBase.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>

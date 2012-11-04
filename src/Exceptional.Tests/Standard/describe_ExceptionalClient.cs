@@ -1,7 +1,7 @@
 ﻿using Exceptional.Core;
 using NSpec;
 
-namespace Exceptional.Tests
+namespace Exceptional.Tests.Standard
 {
     public class describe_ExceptionalClient : nspec
     {
