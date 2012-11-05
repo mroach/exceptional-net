@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Linq;
 using Newtonsoft.Json;
 
@@ -7,7 +8,7 @@ namespace Exceptional.Core
     public class ExceptionSummary
     {
         [JsonProperty(PropertyName = "occurred_at")]
-        public DateTime OccurredAt { get; set; }
+        public string OccurredAt { get; set; }
 
         [JsonProperty(PropertyName = "message")]
         public string Message { get; set; }
@@ -20,14 +21,14 @@ namespace Exceptional.Core
 
         public ExceptionSummary()
         {
-            OccurredAt = DateTime.UtcNow;
+            OccurredAt = DateTime.UtcNow.ToString("o", CultureInfo.InvariantCulture);
         }
 
         public static ExceptionSummary CreateFromException(Exception ex)
         {
             var summary = new ExceptionSummary();
             summary.Message = ex.Message;
-            summary.Backtrace = ex.StackTrace.Split('\r', '\n').Select(line => line.Trim()).ToArray();
+            summary.Backtrace = ex.StackTrace.Split(new[] {'\r', '\n'}, StringSplitOptions.RemoveEmptyEntries).Select(line => line.Trim()).ToArray();
             summary.ExceptionClass = ex.GetType().Name;
             return summary;
         }
