@@ -8,8 +8,19 @@ namespace Exceptional.Tests.Standard
     {
         public void when_creating_an_alert()
         {
-            Alert alert = null;
+            Exception exception = null;
 
+            try
+            {
+                throw new ArgumentException("Generated this exception in the test");
+            }
+            catch (Exception ex)
+            {
+                exception = ex;
+            }
+
+            Alert alert = null;
+            
             context["without setting any values"] = () =>
                 {
                     before = () => alert = new Alert();
@@ -20,25 +31,14 @@ namespace Exceptional.Tests.Standard
 
             context["when created with an exception constructor argument"] = () =>
                 {
-                    before = () => alert = new Alert(CreateException("A great failure has occurred."));
+                    before = () => alert = new Alert(exception);
 
                     it["should have the Exception populated"] = () => alert.Exception.should_not_be_null();
+                    it["should have the Environment set"] = () => alert.Environment.should_not_be_null();
                     it["should pass validation"] = () => alert.Validate();
                     it["should serialize"] = () => Console.WriteLine(Serializer.Serialize(alert));
                     //Console.WriteLine(Serializer.Serialize(alert));
                 };
-        }
-
-        protected Exception CreateException(string message)
-        {
-            try
-            {
-                throw new ArgumentException(message);
-            }
-            catch (Exception ex)
-            {
-                return ex;
-            }
         }
     }
 }

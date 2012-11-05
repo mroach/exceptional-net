@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using Exceptional.Core;
 using NSpec;
 
@@ -24,7 +25,7 @@ namespace Exceptional.Tests.Standard
                     specify = () => summary.Message.should_be("Test exception");
                     specify = () => summary.Backtrace.Length.should_be_greater_than(0);
                     specify = () => summary.ExceptionClass.should_be("ExceptionalValidationException");
-                    specify = () => summary.OccurredAt.should_be_less_or_equal_to(DateTime.UtcNow);
+                    specify = () => DateTime.ParseExact(summary.OccurredAt, "yyyy'-'MM'-'dd'T'HH':'mm':'ss'.'fffffffK", CultureInfo.CurrentCulture).should_be_less_or_equal_to(DateTime.Now);
                 };
         }
 

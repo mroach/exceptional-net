@@ -31,16 +31,17 @@ namespace Exceptional.Tests.Integration
                                   Headers = new Dictionary<string, string>
                                                 {
                                                     {"Version", "HTTP/1.1"},
-                                                    {"User-Agent", "Test"}
+                                                    {"User-Agent", "Test"},
                                                 },
-                                  Parameters = new Dictionary<string, object>
+                                  Parameters = new Dictionary<string, string>
                                                 {
                                                     {"Action", "Test"},
                                                     {"Controller", "TestController"}
                                                 },
-                                  Session = new Dictionary<string, object>
+                                  Session = new Dictionary<string, string>
                                                 {
-                                                    {"UserID", 123}
+                                                    {"UserID", "123"},
+                                                    {"demo:Person", "99883"}
                                                 }
                               };
             var alert = new Alert(CreateException());
