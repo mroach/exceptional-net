@@ -6,13 +6,13 @@ namespace Exceptional.Core
     public class HttpRequestSummary
     {
         [JsonProperty(PropertyName = "session")]
-        public IDictionary<string, object> Session { get; set; }
+        public IDictionary<string, string> Session { get; set; }
 
         [JsonProperty(PropertyName = "remote_ip")]
         public string RemoteIp { get; set; }
 
         [JsonProperty(PropertyName = "parameters")]
-        public IDictionary<string, object> Parameters { get; set; }
+        public IDictionary<string, string> Parameters { get; set; }
 
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
@@ -31,8 +31,8 @@ namespace Exceptional.Core
 
         public HttpRequestSummary()
         {
-            Session = new Dictionary<string, object>();
-            Parameters = new Dictionary<string, object>();
+            Session = new Dictionary<string, string>();
+            Parameters = new Dictionary<string, string>();
             Headers = new Dictionary<string, string>();
         }   
     }
