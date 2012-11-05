@@ -24,7 +24,7 @@ namespace Exceptional.Web.Mvc
             if (session != null)
                 summary.Session = session.Keys.Cast<string>().ToDictionary(k => k, k => Serializer.SanitizeItem(session[k]));
 
-            summary.Url = context.HttpContext.Request.RawUrl;
+            summary.Url = GenerateUrl(context.HttpContext.Request);
 
             return summary;
         }
@@ -34,7 +34,38 @@ namespace Exceptional.Web.Mvc
             var appPath = context.HttpContext.Request.PhysicalApplicationPath;
             var username = context.HttpContext.User.Identity.Name;
 
+            if (string.IsNullOrWhiteSpace(username))
+                username = null;
+
             return EnvironmentSummary.CreateFromEnvironment(appPath, username);
+        }
+
+        public static Alert CreateAlert(ExceptionContext context)
+        {
+            var env = CreateEnvironmentSummary(context);
+            var req = CreateHttpRequestSummary(context);
+            return new Alert(context.Exception) {Environment = env, Request = req};
+        }
+
+        private static string GenerateUrl(HttpRequestBase request)
+        {
+            var port = request.ServerVariables["SERVER_PORT"];
+            var host = request.ServerVariables["HTTP_HOST"];
+
+            if (port == "443" && request.IsSecureConnection)
+                port = null;
+
+            if (port == "80" && !request.IsSecureConnection)
+                port = null;
+
+            if (!string.IsNullOrEmpty(port))
+                port = ":" + port;
+
+            return string.Format("{0}://{1}{2}{3}",
+                request.IsSecureConnection ? "https" : "http",
+                host,
+                port,
+                request.RawUrl);
         }
     }
 }

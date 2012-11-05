@@ -8,23 +8,26 @@ namespace Exceptional.Web.Mvc
     {
         protected readonly ExceptionalClient Client;
 
+        public Exceptional()
+            : this(new ExceptionalClient())
+        {
+            
+        }
+
+        public Exceptional(string apiKey)
+            : this(new ExceptionalClient(apiKey))
+        {
+        }
+
         public Exceptional(ExceptionalClient client)
         {
             Client = client;
         }
 
-        public void Handle(ExceptionContext context, Action<string> debug = null)
+        public void Report(ExceptionContext context, Action<string> debug = null)
         {
-            var alert = CreateAlert(context);
+            var alert = Mapper.CreateAlert(context);
             Client.Send(alert, debug);
-        }
-
-        public Alert CreateAlert(ExceptionContext context)
-        {
-            var alert = new Alert(context.Exception);
-            alert.Environment = Mapper.CreateEnvironmentSummary(context);
-            alert.Request = Mapper.CreateHttpRequestSummary(context);
-            return alert;
         }
     }
 }

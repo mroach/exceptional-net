@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Exceptional.Web.Mvc</id>
+    <version>$version$</version>
+    <title>Exceptional.Web.Mvc</title>
+    <authors>Michael Roach</authors>
+    <owners>Michael Roach</owners>
+    <licenseUrl>https://github.com/mroach/exceptional-net/LICENSE.txt</licenseUrl>
+    <projectUrl>https://github.com/mroach/exceptional-net</projectUrl>
+    <iconUrl>https://github.com/mroach/exceptional-net/master/icon.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>Bindings for the Exceptional.io error reporting service with MVC filters and you can use to easily integrate with your ASP.NET MVC project. This is not an official project and is not officially associated with exceptional.io.</description>
+    <releaseNotes>Summary of changes made in this release of the package.</releaseNotes>
+    <copyright>Copyright 2012</copyright>
+    <tags>exceptional exceptional.io error reporting mvc filter</tags>
+    <dependencies>
+      <dependency id="Newtonsoft.Json" version="4.5" />
+    </dependencies>
+  </metadata>
+  <files>
+    <file src="bin\Release\Exceptional.Core.dll" target="lib" />
+    <file src="bin\Release\Exceptional.Web.Mvc.dll" target="lib" />
+  </files>
+</package>
