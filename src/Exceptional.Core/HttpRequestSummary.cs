@@ -17,6 +17,9 @@ namespace Exceptional.Core
         [JsonProperty(PropertyName = "action")]
         public string Action { get; set; }
 
+        [JsonProperty(PropertyName = "controller")]
+        public string Controller { get; set; }
+
         [JsonProperty(PropertyName = "url")]
         public string Url { get; set; }
 
