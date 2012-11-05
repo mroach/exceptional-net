@@ -51,7 +51,7 @@ namespace Exceptional.Core
             summary.ApplicationRootDirectory = applicationRootDirectory ?? DefaultApplicationRootDirectory();
             summary.RunAsUser = username ?? Environment.UserName;
             summary.Host = Environment.MachineName;
-            summary.LoadedLibraries = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.FullName).ToArray();
+            summary.LoadedLibraries = AppDomain.CurrentDomain.GetAssemblies().Select(a => a.FullName).OrderBy(s => s).ToArray();
 
             return summary;
         }
