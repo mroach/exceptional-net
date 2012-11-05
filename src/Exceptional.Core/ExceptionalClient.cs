@@ -38,7 +38,7 @@ namespace Exceptional.Core
 
             debug("Generated Exceptional request JSON: " + json);
 
-            var url = GetEndpointUrl();
+            var url = GetEndpointUrl() + "&hash=" + alert.UniquenessHash();
 
             debug("POST to " + url);
 

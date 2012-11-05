@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text;
 using Newtonsoft.Json;
 
 namespace Exceptional.Core
@@ -28,8 +29,25 @@ namespace Exceptional.Core
             Exception = ExceptionSummary.CreateFromException(ex);
         }
         
+        public string UniquenessHash()
+        {
+            var data = Encoding.UTF8.GetBytes(string.Join("", Exception.Backtrace));
+
+            using (var md5 = System.Security.Cryptography.MD5.Create())
+            {
+                var hashBytes = md5.ComputeHash(data);
+                return BitConverter.ToString(hashBytes).Replace("-", "").ToLower();
+            }
+        }
+
         public void Validate()
         {
+            if (Exception == null)
+                throw new ExceptionalValidationException("Exception summary is missing.");
+
+            if (Environment == null)
+                throw new ExceptionalValidationException("Environment summary is missing");
+            
             if (Exception.Backtrace == null)
                 throw new ExceptionalValidationException("Exception is missing the backtrace.");
 
