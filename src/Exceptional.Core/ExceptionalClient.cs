@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Configuration;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
@@ -9,15 +10,31 @@ namespace Exceptional.Core
 {
     public class ExceptionalClient
     {
+        public static string DefaultApiKey;
+
         public const string ProtocolVersion = "6";
 
         public const string EndpointUrlFormat = "http://api.exceptional.io/api/errors?api_key={0}&protocol_version={1}";
 
         public string ApiKey { get; set; }
 
+        /// <summary>
+        /// Creates an Exceptional client using the <see cref="DefaultApiKey"/> if available, otherwise reading the Exceptional:ApiKey app setting.
+        /// </summary>
+        public ExceptionalClient()
+            : this(DefaultApiKey ?? GetApiKeyFromAppConfiguration())
+        {
+
+        }
+
         public ExceptionalClient(string apiKey)
         {
             ApiKey = apiKey;
+        }
+
+        public static string GetApiKeyFromAppConfiguration()
+        {
+            return ConfigurationManager.AppSettings["Exceptional:ApiKey"];
         }
 
         public string GetEndpointUrl()
